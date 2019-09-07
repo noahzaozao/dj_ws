@@ -32,7 +32,10 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'channels',
+    'txcorelib',
+    'txauth',
     'chat',
+    'api',
 
     'django.contrib.admin',
     'django.contrib.auth',

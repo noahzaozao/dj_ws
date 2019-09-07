@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block title %}
+<meta name="description" content="description"/>
+<meta name="keywords" content="keywords"/>
+<title>Login</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row" style="padding-left: 30px; max-width: 600px;">
+    <h1>Login</h1>
+    <form class="form-horizontal" onsubmit=" return false;">
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" placeholder="Username" v-model="username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" placeholder="Password" v-model="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="loginBtn" type="submit" class="btn btn-default" @click="onLogin">Sign in</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+var app = new Vue({
+    el: '#app',
+    data: {
+        username: "",
+        password: "",
+    },
+    mounted: function () {
+
+    },
+    methods: {
+        onLogin: function () {
+            if (app.username == "" || app.password == "") {
+                toastr.warning('Please input username or password!');
+            }
+
+            _dqRequest('/api/login', 'POST', {
+                    username: app.username,
+                    password: app.password,
+                }, function(r) {
+                    console.log(r);
+                }
+            );
+        }
+    }
+});
+</script>
+{% endblock %}

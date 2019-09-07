@@ -16,9 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+from django.http.response import HttpResponseRedirect
+
+
+def index(request):
+    return HttpResponseRedirect('/auth')
+
 
 urlpatterns = [
 
+    path('', index),
+    path('api/', include('api.urls')),
+    path('auth/', include('txauth.urls')),
     path('chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
 ]
